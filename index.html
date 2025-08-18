@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Controller Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        #test-object {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Input Controller Test</h1>
+    <p>Use WASD or arrow keys to move the box. Bind "jump" to space and test it.</p>
+    
+    <div id="test-object"></div>
+    
+    <div class="controls">
+        <button id="attach-btn">Attach to Body</button>
+        <button id="detach-btn">Detach</button>
+        <button id="enable-btn">Enable Controller</button>
+        <button id="disable-btn">Disable Controller</button>
+        <button id="bind-jump-btn">Bind Jump to Space</button>
+        <button id="enable-jump-btn">Enable Jump Action</button>
+        <button id="disable-jump-btn">Disable Jump Action</button>
+    </div>
+    
+    <script src="input-controller.js"></script>
+    <script src="input-controller-test.js"></script>
+</body>
+</html>
