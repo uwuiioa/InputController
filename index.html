@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Controller Test</title>
+    <title>Универсальный контроллер ввода</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Comic Sans MS', sans-serif;
+            margin: 100px;
+            text-align: center;
         }
         
         #test-object {
@@ -23,30 +24,29 @@
         .controls {
             margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
         
         button {
             padding: 10px;
             cursor: pointer;
+            font-family: 'Comic Sans MS', sans-serif;
         }
     </style>
 </head>
 <body>
-    <h1>Input Controller Test</h1>
-    <p>Use WASD or arrow keys to move the box. Bind "jump" to space and test it.</p>
+    <h1>Тестовая страница</h1>
+    <p>Используйте WASD или клавиши со стрелками для перемещения.</p>
     
     <div id="test-object"></div>
     
     <div class="controls">
-        <button id="attach-btn">Attach to Body</button>
-        <button id="detach-btn">Detach</button>
-        <button id="enable-btn">Enable Controller</button>
-        <button id="disable-btn">Disable Controller</button>
-        <button id="bind-jump-btn">Bind Jump to Space</button>
-        <button id="enable-jump-btn">Enable Jump Action</button>
-        <button id="disable-jump-btn">Disable Jump Action</button>
+        <button id="attach-btn">аттач к элементу DOM</button>
+        <button id="detach-btn">детач от элемента DOM</button>
+        <button id="enable-btn">активация контроллера</button>
+        <button id="disable-btn">деактивация контроллера</button>
+        <button id="bind-jump-btn">байнд доп. активности “прыжок” на кнопку “пробел”</button>
     </div>
     
     <script src="input-controller.js"></script>
