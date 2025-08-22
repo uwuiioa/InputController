@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const testObject = document.getElementById('test-object');
     let posX = 0, posY = 0;
-    const speed = 8;
+    const speed = 1;
 
     document.body.addEventListener(controller.ACTION_ACTIVATED, e => {
         console.log(`[CONTROLLER] Action activated: ${e.detail.action}`);
@@ -30,31 +30,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const update = () => {
-        if (controller.isActionActive('left')) {
-            posX -= speed;
-            console.log(`[GAME] Moving left (keyboard): ${posX}`);
-        }
-        if (controller.isActionActive('right')) {
-            posX += speed;
-            console.log(`[GAME] Moving right (keyboard): ${posX}`);
-        }
-        if (controller.isActionActive('up')) {
-            posY -= speed;
-            console.log(`[GAME] Moving up: ${posY}`);
-        }
-        if (controller.isActionActive('down')) {
-            posY += speed;
-            console.log(`[GAME] Moving down: ${posY}`);
+        let moveX = 0;
+        let moveY = 0;
+
+        if (controller.isActionActive('left') || controller.isActionActive('mouse_left')) {
+            moveX -= 1;
         }
         
-        if (controller.isActionActive('mouse_left')) {
-            posX -= speed;
-            console.log(`[GAME] Moving left (mouse): ${posX}`);
+        if (controller.isActionActive('right') || controller.isActionActive('mouse_right')) {
+            moveX += 1;
         }
-        if (controller.isActionActive('mouse_right')) {
-            posX += speed;
-            console.log(`[GAME] Moving right (mouse): ${posX}`);
+        
+        if (controller.isActionActive('up')) {
+            moveY -= 1;
         }
+        
+        if (controller.isActionActive('down')) {
+            moveY += 1;
+        }
+
+        if (moveX !== 0 && moveY !== 0) {
+            const length = Math.sqrt(moveX * moveX + moveY * moveY);
+            moveX = (moveX / length) * speed;
+            moveY = (moveY / length) * speed;
+        } else {
+            moveX *= speed;
+            moveY *= speed;
+        }
+
+        posX += moveX;
+        posY += moveY;
     
         testObject.style.backgroundColor = controller.isActionActive('jump') ? 'turquoise' : 'blue';
         testObject.style.transform = `translate(${posX}px, ${posY}px)`;
