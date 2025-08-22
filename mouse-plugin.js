@@ -24,6 +24,7 @@ class MousePlugin {
             }
             
             this.updateEventListeners();
+            this.notifyController(); 
         }
     }
 
@@ -118,6 +119,8 @@ class MousePlugin {
                     console.log(`Action '${actionName}' state updated to: ${isActive}`);
                 }
             }
+            
+            this.notifyController(); 
         }
     }
     
@@ -140,6 +143,8 @@ class MousePlugin {
                     console.log(`Action '${actionName}' state updated to: ${isActive}`);
                 }
             }
+            
+            this.notifyController(); 
         }
     }
 
@@ -147,6 +152,12 @@ class MousePlugin {
         if (this._preventContextMenu && this._enabled) {
             e.preventDefault();
             console.log('Context menu prevented');
+        }
+    }
+
+    notifyController() {
+        if (this.controller && typeof this.controller.updateAllActionsState === 'function') {
+            this.controller.updateAllActionsState();
         }
     }
 
@@ -204,5 +215,7 @@ class MousePlugin {
                 }
             }
         }
+        
+        this.notifyController(); 
     }
 }
