@@ -1,55 +1,57 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Универсальный контроллер ввода</title>
+    <title>Input Controller Test</title>
     <style>
-        body {
-            font-family: 'Comic Sans MS', sans-serif;
-            margin: 100px;
-            text-align: center;
-        }
-        
         #test-object {
             width: 50px;
             height: 50px;
             background-color: blue;
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            top: 100px;
+            left: 100px;
+            transition: transform 0.1s;
         }
         
         .controls {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
         }
         
         button {
-            padding: 10px;
+            margin: 5px;
+            padding: 8px 12px;
             cursor: pointer;
-            font-family: 'Comic Sans MS', sans-serif;
+            display: block;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            cursor: default;
+            outline: none;
         }
     </style>
 </head>
-<body>
-    <h1>Тестовая страница</h1>
-    <p>Используйте WASD или клавиши со стрелками для перемещения.</p>
-    
+<body tabindex="0">
     <div id="test-object"></div>
     
     <div class="controls">
-        <button id="attach-btn">аттач к элементу DOM</button>
-        <button id="detach-btn">детач от элемента DOM</button>
-        <button id="enable-btn">активация контроллера</button>
-        <button id="disable-btn">деактивация контроллера</button>
-        <button id="bind-jump-btn">байнд доп. активности “прыжок” на кнопку “пробел”</button>
+        <button id="keyboard-toggle-btn">Выключить клавиатуру</button>
+        <button id="mouse-toggle-btn">Выключить мышь</button>
     </div>
-    
+
     <script src="input-controller.js"></script>
+    <script src="keyboard-plugin.js"></script>
+    <script src="mouse-plugin.js"></script>
     <script src="input-controller-test.js"></script>
 </body>
 </html>
