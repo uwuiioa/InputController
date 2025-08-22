@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     const mousePlugin = new MousePlugin({
-        mouse_left: { buttons: [0], enabled: true },    
-        mouse_right: { buttons: [2], enabled: true }    
+        left: { buttons: [0], enabled: true },    
+        right: { buttons: [2], enabled: true }    
     });
     
     controller.addPlugin('keyboard', keyboardPlugin);
@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let moveX = 0;
         let moveY = 0;
 
-        if (controller.isActionActive('left') || controller.isActionActive('mouse_left')) {
+        if (controller.isActionActive('left')) {
             moveX -= 1;
         }
         
-        if (controller.isActionActive('right') || controller.isActionActive('mouse_right')) {
+        if (controller.isActionActive('right')) {
             moveX += 1;
         }
         
