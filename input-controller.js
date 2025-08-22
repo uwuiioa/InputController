@@ -50,6 +50,35 @@ class InputController {
         return action ? action.active : false;
     }
 
+    isActionActiveAuto(actionName) {
+        for (const plugin of this.plugins.values()) {
+            if (typeof plugin.isActionActive === 'function') {
+                const isActive = plugin.isActionActive(actionName);
+                if (isActive) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    updateAllActionsState() {
+        const allActions = new Set();
+        
+        this.plugins.forEach(plugin => {
+            if (plugin.actionsConfig) {
+                Object.keys(plugin.actionsConfig).forEach(action => {
+                    allActions.add(action);
+                });
+            }
+        });
+
+        allActions.forEach(actionName => {
+            const isActive = this.isActionActiveAuto(actionName);
+            this.setActionState(actionName, isActive);
+        });
+    }
+
     addPlugin(name, plugin) {
         if (this.plugins.has(name)) {
             console.warn(`Plugin '${name}' already exists`);
@@ -60,9 +89,17 @@ class InputController {
         plugin.init(this);
         console.log(`Plugin '${name}' added`);
         
+        if (plugin.actionsConfig) {
+            Object.keys(plugin.actionsConfig).forEach(actionName => {
+                this.registerAction(actionName);
+            });
+        }
+        
         if (this.target) {
             plugin.attach(this.target);
         }
+        
+        this.updateAllActionsState();
     }
 
     removePlugin(name) {
@@ -72,6 +109,8 @@ class InputController {
             plugin.destroy();
             this.plugins.delete(name);
             console.log(`Plugin '${name}' removed`);
+            
+            this.updateAllActionsState();
         }
     }
 
@@ -87,6 +126,8 @@ class InputController {
         });
         
         console.log('Controller attached to target');
+        
+        this.updateAllActionsState();
     }
 
     detach() {
@@ -107,6 +148,8 @@ class InputController {
     handleFocus() {
         this.focused = true;
         console.log('Controller focused');
+        
+        this.updateAllActionsState();
     }
 
     handleBlur() {
