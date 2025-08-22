@@ -22,6 +22,7 @@ class KeyboardPlugin {
             }
             
             this.updateEventListeners();
+            this.notifyController();
         }
     }
 
@@ -106,6 +107,8 @@ class KeyboardPlugin {
                     console.log(`Action '${actionName}' state updated to: ${isActive}`);
                 }
             }
+            
+            this.notifyController();
         }
     }
     
@@ -128,6 +131,14 @@ class KeyboardPlugin {
                     console.log(`Action '${actionName}' state updated to: ${isActive}`);
                 }
             }
+            
+            this.notifyController(); 
+        }
+    }
+
+    notifyController() {
+        if (this.controller && typeof this.controller.updateAllActionsState === 'function') {
+            this.controller.updateAllActionsState();
         }
     }
 
@@ -167,5 +178,7 @@ class KeyboardPlugin {
                 }
             }
         }
+        
+        this.notifyController();
     }
 }
